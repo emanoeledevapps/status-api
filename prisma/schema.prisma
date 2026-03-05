@@ -12,6 +12,7 @@ model Api {
   url       String
   interval  Int      @default(60) // in seconds
   active    Boolean  @default(true)
+  lastStatus String  @default("up") // "up" or "down"
   createdAt DateTime @default(now())
   logs      Log[]
 }
