@@ -1,0 +1,28 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Api {
+  id        String   @id @default(uuid())
+  name      String
+  url       String
+  interval  Int      @default(60) // in seconds
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  logs      Log[]
+}
+
+model Log {
+  id         String   @id @default(uuid())
+  apiId      String
+  status     Int      // HTTP Status Code
+  responseTime Int    // in ms
+  success    Boolean
+  error      String?
+  createdAt  DateTime @default(now())
+  api        Api      @relation(fields: [apiId], references: [id])
+}
